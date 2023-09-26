@@ -12,19 +12,27 @@ def main():
     tori_img3 = pg.transform.flip(tori_img3, True, False)
     img_lis = [tori_img3, pg.transform.rotozoom(tori_img3, 10, 1.0)]
     tmr = 0
+    num = 0
 
     while True:
+        if num >= 1600:
+            num = 0
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
         screen.blit(bg_img, [0, 0])
         if tmr%2 == 0:
-         screen.blit(img_lis[0], [300, 200])
+            img_rct = img_lis[0].get_rect()
+            img_rct.center = num, 200
+            screen.blit(img_lis[0], img_rct)
         else:
-           screen.blit(img_lis[1], [300, 200])
+            img_rct = img_lis[1].get_rect()
+            img_rct.center = num, 200
+            screen.blit(img_lis[1], img_rct)
         pg.display.update()
-        tmr += 1        
-        clock.tick(10)
+        tmr += 1 
+        num += 1       
+        clock.tick(100)
 
 
 if __name__ == "__main__":
