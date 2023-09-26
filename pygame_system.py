@@ -2,6 +2,7 @@ import pygame as pg
 import sys
 
 def main():
+    #a
     #ここから初期設定
     pg.display.set_caption("はじめてのPygame")
     screen = pg.display.set_mode((800, 600))
