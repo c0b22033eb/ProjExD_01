@@ -8,7 +8,9 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock  = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg")
-    tori_img3 = pg.image.load("fig/3.jpg")
+    tori_img3 = pg.image.load("fig/3.png")
+    tori_img3 = pg.transform.flip(tori_img3, True, False)
+    img_lis = [tori_img3, pg.transform.rotozoom(tori_img3, 10, 1.0)]
     tmr = 0
 
     while True:
@@ -16,6 +18,7 @@ def main():
             if event.type == pg.QUIT: return
 
         screen.blit(bg_img, [0, 0])
+        screen.blit(tori_img3, [0, 0])
         pg.display.update()
         tmr += 1        
         clock.tick(10)
