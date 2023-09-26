@@ -18,7 +18,10 @@ def main():
             if event.type == pg.QUIT: return
 
         screen.blit(bg_img, [0, 0])
-        screen.blit(tori_img3, [0, 0])
+        if tmr%2 == 0:
+         screen.blit(img_lis[0], [300, 200])
+        else:
+           screen.blit(img_lis[1], [300, 200])
         pg.display.update()
         tmr += 1        
         clock.tick(10)
