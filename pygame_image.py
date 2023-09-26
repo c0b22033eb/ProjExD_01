@@ -8,31 +8,42 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock  = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg")
-    tori_img3 = pg.image.load("fig/3.png")
+    rev_bg_img = pg.transform.flip(bg_img, True, False)
+    tori_img3 = pg.image.load(f"fig/3.png")
     tori_img3 = pg.transform.flip(tori_img3, True, False)
-    img_lis = [tori_img3, pg.transform.rotozoom(tori_img3, 10, 1.0)]
     tmr = 0
     num = 0
+    flag = True
+    i = 0
 
     while True:
-        if num >= 1600:
-            num = 0
+        if tmr == 1600:
+            i = 1600
+
+        if flag:
+            num +=1 
+            if tmr%20 == 0:
+                flag = False
+        else:
+            num -=1
+            if tmr%20 == 0:
+                flag = True
+
+        img_lis = pg.transform.rotozoom(tori_img3, num, 1.0)
         for event in pg.event.get():
             if event.type == pg.QUIT: return
-
-        screen.blit(bg_img, [0, 0])
-        if tmr%2 == 0:
-            img_rct = img_lis[0].get_rect()
-            img_rct.center = num, 200
-            screen.blit(img_lis[0], img_rct)
+        if tmr%3200 < 1600:
+            screen.blit(bg_img, [-(tmr%1600), 0])
+            screen.blit(rev_bg_img, [1600-(tmr%1600), 0])
         else:
-            img_rct = img_lis[1].get_rect()
-            img_rct.center = num, 200
-            screen.blit(img_lis[1], img_rct)
+            screen.blit(bg_img, [1600-(tmr%1600), 0])
+            screen.blit(rev_bg_img, [-(tmr%1600), 0])
+        
+        
+        screen.blit(img_lis, [300, 200+num])
         pg.display.update()
-        tmr += 1 
-        num += 1       
-        clock.tick(100)
+        tmr += 1    
+        clock.tick(300)
 
 
 if __name__ == "__main__":
